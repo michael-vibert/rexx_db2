@@ -14,7 +14,6 @@
  */
 Signal On Syntax
 Parse Arg . 'user=' username . 1 . 'pass=' password . 1 . 'data=' database . 1 . 'serv=' server .
-say Arg
 Call RxFuncAdd 'SQLLoadFuncs', 'rexxsql', 'SQLLoadFuncs'
 Call SQLLoadFuncs
 /*
@@ -49,7 +48,7 @@ Else
    Do
       Say '('sqlca.sqlstate')' sqlca.sqlerrm
    End
-Call SQLDropFuncs 'UNLOAD'
+
 Exit 1
 
 Syntax:

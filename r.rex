@@ -1,16 +1,26 @@
 /* REXX */
 Signal On Syntax
-Parse Arg . 'user=' username . 1 . 'pass=' password . 1 . 'data=' database . 1 . 'serv=' server .
+Parse Arg . 'user=' username . 1 . 'pass=' password . 1 . 'data=' database . 1 . 'serv=' server . 
+Parse arg commands
 
 Call RxFuncAdd 'SQLLoadFuncs', 'rexxsql', 'SQLLoadFuncs'
+
 Call SQLLoadFuncs
 /*
  * Connect and display some details of the connection
  */
-If SQLConnect( 'conn1', username, password, database, server ) < 0 Then Abort( 'connecting' )
+If SQLConnect( 'conn1', username, password, sample1, server ) < 0 Then Abort( 'connecting' )
     Say 'Connect succeeded!'
-    rc = SQLCOMMAND(s1,"INSERT INTO Person VALUES (4, 'Harriette');")
-    say rc
+    f1 = sqlcommand(s2, commands)
+    /* sqlopen(s1) */
+    if f1 == 0 then
+    say "Insert done successfully"
+    else
+    say commands
+
+    /* rc = SQLCOMMAND(s1,"INSERT INTO Person VALUES (4, 'Harriette');") */
+    
+
 Parse Version ver
 Say 'Rexx Version:' ver
 Say 'Rexx/SQL Version:' SQLVariable( 'VERSION' )
@@ -20,7 +30,7 @@ If SQLGetinfo('conn1','DBMSVERSION','desc.') < 0 Then Abort( 'getting db version
 Say 'Database Version:' desc.1
 
 
-/* rc1 = SQLExecute(s1) */
+
 say rc1
 /*
  * All done, lets get out
